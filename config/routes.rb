@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'chat', to: 'rooms#show', as: 'chat'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 post 'reminder', to: 'emails#reminder', as: 'reminder'
   
@@ -61,5 +63,5 @@ post 'reminder', to: 'emails#reminder', as: 'reminder'
   root 'posts#index'
 
   # Serve websocket cable requests in-process
-  # mount ActionCable.server => '/cable'
+  mount ActionCable.server => '/cable'
 end

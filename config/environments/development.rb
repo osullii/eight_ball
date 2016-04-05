@@ -55,6 +55,11 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  
+  # request origin allowed
+  config.action_cable.disable_request_forgery_protection = true
+  
+  config.web_console.whiny_requests = false
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
