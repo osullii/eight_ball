@@ -6,10 +6,60 @@
     <%= action_cable_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload' %>
+    <%= javascript_include_tag 'default', 'data-turbolinks-track' => 'reload' %>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= content_for?(:title) ? yield(:title) : "AARS" %></title>
+    <%= stylesheet_link_tag    "application", media: "all" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag '//media.twiliocdn.com/sdk/rtc/js/ip-messaging/v0.8/twilio-ip-messaging.min.js' %> 
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
   </head>
 
   <body>
-    <%= yield %>
+  <!--Navigation Bar-->
+
+  <nav class="menu">
+  <h1 class="name"><i class="fi-widget"></i> AARS</a></h1>
+  <ul class="inline-list">
+
+  <!-- Navigration bar -->
+    <%= content_tag(:li, link_to("All Posts", posts_path), class: list_class(posts_path)) %>
+    <% if current_user && current_user.role == "consultant" %>
+    <%= content_tag(:li, link_to("My Answers", my_answers_path), class: list_class(my_answers_path)) %>
+    <%= content_tag(:li, link_to("My Clients", my_clients_path), class: list_class(my_clients_path)) %>
+    <% elsif current_user && current_user.role == "user" %>
+    <%= content_tag(:li, link_to("My Posts", my_posts_path), class: list_class(my_posts_path)) %>
+    <%= content_tag(:li, link_to("My Appointments", my_appointments_path), class: list_class(my_appointments_path)) %>
+    <%= content_tag(:li, link_to("Post Problem", new_post_path, method: :get), class: list_class(new_post_path)) %>
+    <% end %>
+ 
+  <!-- Log in system -->
+  <% if current_user %>
+      <li></li>
+      <li><%= link_to "Welcome #{current_user.name}!", "#" %></li>
+      <% if current_user.role %>
+      <li></li>
+      <li><%= content_tag(:a, current_user.role ? "#{current_user.role.capitalize}" : "") %></li>
+      <% end %>
+      <li></li>
+      <li><%= link_to "Sign Out", sign_out_path %></li>
+      <li></li>
+  <% else %>
+      <li></li>
+      <li><%= link_to image_tag("Google.png", :size => "25x25", :crop => :fill), "/auth/google_oauth2" %></li>
+      <li></li>
+      <!--<li><%= link_to image_tag("facebook.png", :size => "25x25", :crop => :fill), "/auth/facebook" %></li>-->
+      <li></li>
+  <% end %>
+ </ul>
+</nav>
+
+  <% if notice %>
+    <span class="alert"><%= notice %></span>
+  <% end %>
+
+<%= yield %>
   </body>
 </html>
