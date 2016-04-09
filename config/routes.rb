@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  get 'chat', to: 'rooms#show', as: 'chat'
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-post 'reminder', to: 'emails#reminder', as: 'reminder'
+  
+  resources :conversations, only: [:show]
+  
+  get 'chat', to: 'conversations#retrieve_conversation', as: 'chat'
+  
+  post 'reminder', to: 'emails#reminder', as: 'reminder'
   
   post 'update_rating', to: 'saved_links#update_rating', as: 'update_rating'
   
@@ -19,17 +22,11 @@ post 'reminder', to: 'emails#reminder', as: 'reminder'
   get "my_clients", to: 'appointments#my_clients', as: 'my_clients'
   get 'my_appointments', to: 'appointments#my_appointments', as: 'my_appointments'
 
-  # get 'suggestions', to: 'posts#suggestions', as: 'suggestions'
-
   get 'search', to: 'search#results', as: 'search'
 
   get 'contact/new'
 
   post 'contact/send_email'
-
-  resources :conversations do
-    resources :chatmessages
-  end
 
   #IP message token
   post 'tokens' => "tokens#create"
