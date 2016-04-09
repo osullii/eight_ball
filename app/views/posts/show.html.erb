@@ -62,8 +62,8 @@
  <!--Show suggestions following user's problem   -->
 <% if current_user.role == 'user' %>
 <div class="form-style-10">
-<h2 style="text-align: center; color:#257C9E"><%= @result_list.length %> Suggestions</h2>
-<% @result_list.each do |item| %>
+<h2 style="text-align: center; color:#257C9E"><%= @results_list.length %> Suggestions</h2>
+<% @results_list.each do |item| %>
     <%= render partial: "results/result", locals: {result: item} %>
   <% end %>
   <% end %>
