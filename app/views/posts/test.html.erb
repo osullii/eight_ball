@@ -1,5 +1,6 @@
 <div>
 	<h3>Results with partial and object</h3>
+	<h5>Is array? <%= @result_list.kind_of?(Array) %></h5>
 	<br>
 	<%= @result_list.each do |result| %>
 	<%= render partial: "results/result", locals: {result: result}  %>
