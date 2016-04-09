@@ -31,6 +31,7 @@ class PostsController < ApplicationController
   def test
     @results = GoogleCustomSearchApi.search("Raspberry Pi")
     @result_list = Data.parse(@results)
+    @results_list = Data.sort(@result_list)
   end
 
   # GET /posts/new
